@@ -13,7 +13,7 @@ import { SectionList, StyleSheet, Button, Text, View,  Image, SafeAreaView } fro
 
  /*
  const Cat = (props) => {
- 
+
    const [isHungry, setIsHungry] = useState(true);
 
    return (
@@ -43,8 +43,10 @@ const dataOne = [
 ];
 
 const Item = ({ title }) => (
+  // const [isHungry, setIsHungry] = useState(true);
+  // <Text style={styles.title}>{title}</Text>
   <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
+    <Text style={styles.title}>Hello, I am {title}</Text>
   </View>
 );
 
@@ -66,10 +68,10 @@ const App = () => {
       <SectionList
         sections={dataOne}
         keyExtractor={(item, index) => item + index}
-        renderItem={({ item }) => <Item title={item} />}
         renderSectionHeader={({ section: { title } }) => (
           <Text style={styles.header}>{title}</Text>
         )}
+        renderItem={({ item }) => <Item title={item} />}
       />
     </SafeAreaView>
   );
