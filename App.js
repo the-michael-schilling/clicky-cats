@@ -1,17 +1,17 @@
 
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+* Sample React Native App
+* https://github.com/facebook/react-native
+*
+* @format
+* @flow strict-local
+*/
 
 
- import React, { useState } from 'react';
- import { FlatList, StyleSheet, Button, Text, View,  Image, SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { FlatList, StyleSheet, Button, Text, View,  Image, SafeAreaView } from 'react-native';
 
- //
+ /*
  const Cat = (props) => {
 
    const [isHungry, setIsHungry] = useState(true);
@@ -31,44 +31,54 @@
      </View>
    );
  }
- //
+ */
 
- const styles = StyleSheet.create({
-   container: {
-     marginTop: 50,
-     backgroundColor: 'powderblue'
-   },
-   bigRed: {
-     color: 'red',
-     fontWeight: 'bold',
-     fontSize: 30,
-   },
-   item: {
-     padding: 10,
-     fontSize: 18,
-     height: 44,
-   }
- });
+const DATA = [
+  {key: 'Devin'},
+  {key: 'Dan'},
+  {key: 'Dominic'},
+  {key: 'Jackson'},
+  {key: 'James'},
+  {key: 'Joel'},
+  {key: 'John'},
+  {key: 'Jillian'},
+  {key: 'Jimmy'},
+  {key: 'Julie'},
+];
 
- const App = () => {
-   return (
-     <SafeAreaView>
-       <Image
-         source={{
-           uri: 'https://reactnative.dev/docs/assets/p_cat2.png',
-         }}
-         style={{
-           width: 200,
-           height: 200,
-           flexDirection: "row",
-           alignSelf: "center",
-           }}
-       />
-       <Cat name="Maru" />
-       <Cat name="Jellylorum" />
-       <Cat name="Copy" />
-     </SafeAreaView>
-   );
- }
+const renderItem = ({ item }) => (
+  <Text style={styles.item}>{item.key}</Text>
+);
 
- export default App;
+const App = () => {
+  return (
+    <SafeAreaView>
+      <Image
+        source={{
+          uri: 'https://reactnative.dev/docs/assets/p_cat2.png',
+        }}
+        style={{
+          width: 200,
+          height: 200,
+          flexDirection: "row",
+          alignSelf: "center",
+          }}
+      />
+      <FlatList
+        data={DATA}
+        renderItem={renderItem}
+      />
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  item: {
+    padding: 10,
+    fontWeight: 'bold',
+    fontSize: 18,
+    height: 44,
+  },
+});
+
+export default App;
