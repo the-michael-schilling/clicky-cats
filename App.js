@@ -9,11 +9,11 @@
 
 
 import React, { useState } from 'react';
-import { FlatList, StyleSheet, Button, Text, View,  Image, SafeAreaView } from 'react-native';
+import { SectionList, StyleSheet, Button, Text, View,  Image, SafeAreaView } from 'react-native';
 
  /*
  const Cat = (props) => {
-
+ 
    const [isHungry, setIsHungry] = useState(true);
 
    return (
@@ -31,23 +31,21 @@ import { FlatList, StyleSheet, Button, Text, View,  Image, SafeAreaView } from '
      </View>
    );
  }
- */
+*/
 
-const DATA = [
-  {key: 'Devin'},
-  {key: 'Dan'},
-  {key: 'Dominic'},
-  {key: 'Jackson'},
-  {key: 'James'},
-  {key: 'Joel'},
-  {key: 'John'},
-  {key: 'Jillian'},
-  {key: 'Jimmy'},
-  {key: 'Julie'},
+const dataOne = [
+  {
+    title: 'D', data: ['Devin', 'Dan', 'Dominic']
+  },
+  {
+    title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John']
+  }
 ];
 
-const renderItem = ({ item }) => (
-  <Text style={styles.item}>{item.key}</Text>
+const Item = ({ title }) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{title}</Text>
+  </View>
 );
 
 const App = () => {
@@ -62,23 +60,44 @@ const App = () => {
           height: 200,
           flexDirection: "row",
           alignSelf: "center",
-          }}
+        }}
       />
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
+
+      <SectionList
+        sections={dataOne}
+        keyExtractor={(item, index) => item + index}
+        renderItem={({ item }) => <Item title={item} />}
+        renderSectionHeader={({ section: { title } }) => (
+          <Text style={styles.header}>{title}</Text>
+        )}
       />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  sectionHeader: {
+    paddingTop: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 2,
+    fontSize: 14,
+    fontWeight: 'bold',
+    backgroundColor: 'rgba(247,247,247,1.0)',
+  },
   item: {
     padding: 10,
     fontWeight: 'bold',
     fontSize: 18,
     height: 44,
   },
+  header: {
+    fontSize: 32,
+    backgroundColor: "#fff"
+  },
+  title: {
+    fontSize: 24
+  }
 });
 
 export default App;
