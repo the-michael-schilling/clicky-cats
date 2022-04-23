@@ -7,53 +7,8 @@
 * @flow strict-local
 */
 
-
 import React, { useState } from 'react';
 import { SectionList, StyleSheet, Button, Text, View,  Image, SafeAreaView } from 'react-native';
-
-
-const Contact = (props) => {
-
-  const [isHungry, setIsHungry] = useState(true);
-
-  return (
-    <View>
-      <Text>
-        Hello, I am {props.name}, and I am {isHungry ? "hungry" : "full"}!!
-      </Text>
-      <Button
-        title="Press me"
-        onPress={() => {
-          setIsHungry(false);
-        }}
-        disabled={!isHungry}
-        title={isHungry ? "Pour me some milk, please!" : "Thank you!"}
-      />
-    </View>
-  );
-}
-
- /*
- const Cat = (props) => {
-
-   const [isHungry, setIsHungry] = useState(true);
-
-   return (
-     <View style={styles.container}>
-       <Text style={styles.bigRed}>
-         Hello, I am {props.name}, and I am {isHungry ? "hungry" : "full"}!!
-       </Text>
-       <Button
-         onPress={() => {
-           setIsHungry(false);
-         }}
-         disabled={!isHungry}
-         title={isHungry ? "Pour me some milk, please!" : "Thank you!"}
-       />
-     </View>
-   );
- }
-*/
 
 const dataOne = [
   {
@@ -95,18 +50,30 @@ const dataOne = [
   }
 ];
 
-/*
-const Item = ({ title }) => (
+const Contact = ({item}) => {
+
   const [isHungry, setIsHungry] = useState(true);
-  // <Text style={styles.title}>{title}</Text>
-  <View style={styles.item}>
-    <Text style={styles.title}>Hello, I am {title}</Text>
-  </View>
-);
-*/
+  const name = item.id;
+
+  return (
+    <View style={styles.item}>
+      <Text>
+        Hello, I am { name }, and I am {isHungry ? "hungry" : "full"}!!
+      </Text>
+      <Button
+        title="Press me"
+        onPress={() => {
+          setIsHungry(false);
+        }}
+        disabled={!isHungry}
+        title={isHungry ? "Pour me some milk, please!" : "Thank you!"}
+      />
+    </View>
+  );
+}
+
 
 const App = () => {
-
 
   return (
     <SafeAreaView>
@@ -124,26 +91,13 @@ const App = () => {
 
       <SectionList
         sections={dataOne}
-        keyExtractor={(item, index) => item + index} // Write the keyExtractor
-
+        // keyExtractor={(item, index) => item + index} // Write the keyExtractor
 
         renderSectionHeader={({ section: { title } }) => (
           <Text style={styles.header}>{title}</Text>
         )}
 
-        renderItem={({ item }) =>
-          <Text style={styles.item}>
-            Hi, I am { item.id},
-          </Text>
-        }
-        
-        /*
-        renderItem={({ item, index }) => {
-          <Text style={styles.title}>Hello, I am </Text>
-          // <Contact name="CAT" />
-        }}
-        */
-
+        renderItem={({ item }) => <Contact item={item} />}
       />
     </SafeAreaView>
   );
@@ -162,7 +116,7 @@ const styles = StyleSheet.create({
   item: {
     padding: 10,
     fontSize: 18,
-    height: 44,
+    height: 70,
   },
   header: {
     fontSize: 32,
