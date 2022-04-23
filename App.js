@@ -11,6 +11,28 @@
 import React, { useState } from 'react';
 import { SectionList, StyleSheet, Button, Text, View,  Image, SafeAreaView } from 'react-native';
 
+
+const Contact = (props) => {
+
+  const [isHungry, setIsHungry] = useState(true);
+
+  return (
+    <View>
+      <Text>
+        Hello, I am {props.name}, and I am {isHungry ? "hungry" : "full"}!!
+      </Text>
+      <Button
+        title="Press me"
+        onPress={() => {
+          setIsHungry(false);
+        }}
+        disabled={!isHungry}
+        title={isHungry ? "Pour me some milk, please!" : "Thank you!"}
+      />
+    </View>
+  );
+}
+
  /*
  const Cat = (props) => {
 
@@ -35,22 +57,57 @@ import { SectionList, StyleSheet, Button, Text, View,  Image, SafeAreaView } fro
 
 const dataOne = [
   {
-    title: 'D', data: ['Devin', 'Dan', 'Dominic']
+    title: 'Tom Cats',
+    data: [
+      { id: 'Devin',
+        task: '',
+      },
+      { id: 'Dan',
+        task: '',
+      },
+      { id: 'Dominic',
+        task: '',
+      },
+    ]
   },
   {
-    title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John']
+    title: 'Ladies',
+    data: [
+      { id: 'Jackson',
+        task: '',
+      },
+      { id: 'James',
+        task: '',
+      },
+      { id: 'Jillian',
+        task: '',
+      },
+      { id: 'Jimmy',
+        task: '',
+      },
+      { id: 'Joel',
+        task: '',
+      },
+      { id: 'John',
+        task: '',
+      },
+    ]
   }
 ];
 
+/*
 const Item = ({ title }) => (
-  // const [isHungry, setIsHungry] = useState(true);
+  const [isHungry, setIsHungry] = useState(true);
   // <Text style={styles.title}>{title}</Text>
   <View style={styles.item}>
     <Text style={styles.title}>Hello, I am {title}</Text>
   </View>
 );
+*/
 
 const App = () => {
+
+
   return (
     <SafeAreaView>
       <Image
@@ -67,11 +124,26 @@ const App = () => {
 
       <SectionList
         sections={dataOne}
-        keyExtractor={(item, index) => item + index}
+        keyExtractor={(item, index) => item + index} // Write the keyExtractor
+
+
         renderSectionHeader={({ section: { title } }) => (
           <Text style={styles.header}>{title}</Text>
         )}
-        renderItem={({ item }) => <Item title={item} />}
+
+        renderItem={({ item }) =>
+          <Text style={styles.item}>
+            Hi, I am { item.id},
+          </Text>
+        }
+        
+        /*
+        renderItem={({ item, index }) => {
+          <Text style={styles.title}>Hello, I am </Text>
+          // <Contact name="CAT" />
+        }}
+        */
+
       />
     </SafeAreaView>
   );
@@ -89,7 +161,6 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: 10,
-    fontWeight: 'bold',
     fontSize: 18,
     height: 44,
   },
