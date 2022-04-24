@@ -8,7 +8,9 @@
 */
 
 import React, { useState } from 'react';
-import { SectionList, StyleSheet, Button, Text, View,  Image, SafeAreaView } from 'react-native';
+import { SectionList, StyleSheet, Button, Text,
+          View,  Image, SafeAreaView } from 'react-native';
+import Icons from 'react-native-vector-icons';
 
 const dataOne = [
   {
@@ -50,6 +52,7 @@ const dataOne = [
   }
 ];
 
+
 const Contact = ({item}) => {
 
   const [isHungry, setIsHungry] = useState(true);
@@ -67,6 +70,13 @@ const Contact = ({item}) => {
         }}
         disabled={!isHungry}
         title={isHungry ? "Pour me some milk, please!" : "Thank you!"}
+      />
+      <View
+          style={{
+            height: 1,
+            width: "100%",
+            backgroundColor: "#607D8B",
+          }}
       />
     </View>
   );
@@ -91,40 +101,47 @@ const App = () => {
 
       <SectionList
         sections={dataOne}
-        // keyExtractor={(item, index) => item + index} // Write the keyExtractor
-
+        keyExtractor={(item, index) => item + index} // Write the keyExtractor
         renderSectionHeader={({ section: { title } }) => (
           <Text style={styles.header}>{title}</Text>
         )}
-
-        renderItem={({ item }) => <Contact item={item} />}
+        renderItem= {({ item }) => <Contact item={item} />}
       />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionHeader: {
-    paddingTop: 2,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 2,
-    fontSize: 14,
-    fontWeight: 'bold',
-    backgroundColor: 'rgba(247,247,247,1.0)',
-  },
   item: {
     padding: 10,
     fontSize: 18,
-    height: 70,
+    height: 66,
   },
   header: {
-    fontSize: 32,
+    fontSize: 18,
+    fontWeight: 'bold',
+    paddingLeft: 10,
+    paddingTop: 10,
     backgroundColor: "#fff"
   },
   title: {
     fontSize: 24
+  },
+  appButtonContainer: {
+    elevation: 8,
+    backgroundColor: "#009688",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12
+  },
+  appButtonText: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase"
   }
+
 });
 
 export default App;
