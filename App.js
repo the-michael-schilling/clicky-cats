@@ -8,9 +8,17 @@
 */
 
 import React, { useState } from 'react';
-import { SectionList, StyleSheet, Button, Text,
-          View,  Image, SafeAreaView } from 'react-native';
-import Icons from 'react-native-vector-icons';
+import {
+  SectionList,
+  StyleSheet,
+  StatusBar,
+  Button,
+  Text,
+  View,
+  Image,
+  SafeAreaView,
+  useColorScheme,
+} from 'react-native';
 
 const dataOne = [
   {
@@ -52,6 +60,30 @@ const dataOne = [
   }
 ];
 
+const SectionHeader = ({section}) => {
+  const title = section.title;
+  return (
+    <View style={styles.sectionHeader}>
+      <Text style={styles.sectionTitle}>{title}</Text>
+    </View>
+  );
+}
+
+const SectionFooter = ({section}) => {
+
+  return (
+    <View style={styles.sectionFooter}>
+      <View
+        style={{
+          height: 1,
+          width: "100%",
+          backgroundColor: '#dcdcdc',
+          marginTop: 12,
+          }}
+      />
+    </View>
+  );
+}
 
 const Contact = ({item}) => {
 
@@ -59,8 +91,15 @@ const Contact = ({item}) => {
   const name = item.id;
 
   return (
-    <View style={styles.item}>
-      <Text>
+    <View style={styles.sectionContainer}>
+      <View
+        style={{
+          height: 1,
+          width: "100%",
+          backgroundColor: '#dcdcdc'
+        }}
+      />
+      <Text style={[ styles.sectionDescription ]}>
         Hello, I am { name }, and I am {isHungry ? "hungry" : "full"}!!
       </Text>
       <Button
@@ -71,13 +110,6 @@ const Contact = ({item}) => {
         disabled={!isHungry}
         title={isHungry ? "Pour me some milk, please!" : "Thank you!"}
       />
-      <View
-          style={{
-            height: 1,
-            width: "100%",
-            backgroundColor: "#607D8B",
-          }}
-      />
     </View>
   );
 }
@@ -85,8 +117,11 @@ const Contact = ({item}) => {
 
 const App = () => {
 
+  const backgroundStyle = { backgroundColor: 'rgba(247,247,247,1.0)' };
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={backgroundStyle}>
+      <StatusBar/>
       <Image
         source={{
           uri: 'https://reactnative.dev/docs/assets/p_cat2.png',
@@ -95,37 +130,46 @@ const App = () => {
           width: 200,
           height: 200,
           flexDirection: "row",
-          alignSelf: "center",
+          alignSelf: "center"
         }}
       />
 
       <SectionList
         sections={dataOne}
-        keyExtractor={(item, index) => item + index} // Write the keyExtractor
-        renderSectionHeader={({ section: { title } }) => (
-          <Text style={styles.header}>{title}</Text>
-        )}
+        keyExtractor={(item, index) => item + index}
+        renderSectionHeader={({ section }) => <SectionHeader section={section} />}
         renderItem= {({ item }) => <Contact item={item} />}
+        renderSectionFooter={({ section }) => <SectionFooter section={section} />}
       />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 66,
+  sectionHeader: {
+    paddingHorizontal: 24,
+    backgroundColor: 'rgba(247,247,247,1.0)'
   },
-  header: {
-    fontSize: 18,
+  sectionTitle: {
+    fontSize: 24,
+    marginTop: 12,
     fontWeight: 'bold',
-    paddingLeft: 10,
-    paddingTop: 10,
-    backgroundColor: "#fff"
+    marginBottom: 12,
   },
-  title: {
-    fontSize: 24
+  sectionFooter: {
+    paddingHorizontal: 24,
+  },
+  sectionContainer: {
+    paddingHorizontal: 24,
+    // marginBottom: 8,
+  },
+  sectionDescription: {
+    marginTop: 12,
+    fontSize: 18,
+    fontWeight: '400',
+  },
+  highlight: {
+    fontWeight: '700',
   },
   appButtonContainer: {
     elevation: 8,
