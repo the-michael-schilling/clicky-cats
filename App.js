@@ -16,9 +16,11 @@ import {
   Text,
   View,
   Image,
-  SafeAreaView,
-  useColorScheme,
+  SafeAreaView
 } from 'react-native';
+
+// import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const dataOne = [
   {
@@ -77,13 +79,13 @@ const SectionFooter = ({section}) => {
         style={{
           height: 1,
           width: "100%",
-          backgroundColor: '#dcdcdc',
-          marginTop: 12,
-          }}
+          backgroundColor: '#dcdcdc'
+        }}
       />
     </View>
   );
 }
+
 
 const Contact = ({item}) => {
 
@@ -91,7 +93,7 @@ const Contact = ({item}) => {
   const name = item.id;
 
   return (
-    <View style={styles.sectionContainer}>
+    <View style={styles.contactSection}>
       <View
         style={{
           height: 1,
@@ -99,17 +101,26 @@ const Contact = ({item}) => {
           backgroundColor: '#dcdcdc'
         }}
       />
-      <Text style={[ styles.sectionDescription ]}>
+      <Text style={[ styles.contactDescription ]}>
         Hello, I am { name }, and I am {isHungry ? "hungry" : "full"}!!
       </Text>
-      <Button
-        title="Press me"
-        onPress={() => {
-          setIsHungry(false);
-        }}
-        disabled={!isHungry}
-        title={isHungry ? "Pour me some milk, please!" : "Thank you!"}
-      />
+
+      <View style={styles.buttonContainer}>
+        <Icon.Button
+          name= { isHungry ? "call-outline" : "alarm-sharp" }
+          onPress={() => {
+            isHungry ? setIsHungry(false) : setIsHungry(true);
+          }}
+          /*
+          backgroundColor={
+          
+          }
+          */
+          // disabled={!isHungry}
+        >
+          { isHungry ? "Pour me some milk, please!" : "Thank you!" }
+        </Icon.Button>
+      </View>
     </View>
   );
 }
@@ -133,7 +144,6 @@ const App = () => {
           alignSelf: "center"
         }}
       />
-
       <SectionList
         sections={dataOne}
         keyExtractor={(item, index) => item + index}
@@ -159,33 +169,24 @@ const styles = StyleSheet.create({
   sectionFooter: {
     paddingHorizontal: 24,
   },
-  sectionContainer: {
+  contactSection: {
     paddingHorizontal: 24,
     // marginBottom: 8,
   },
-  sectionDescription: {
+  contactDescription: {
     marginTop: 12,
     fontSize: 18,
     fontWeight: '400',
   },
+  buttonContainer: {
+    marginTop: 12,
+    marginLeft: 48,
+    marginRight: 48,
+    marginBottom: 12,
+  },
   highlight: {
     fontWeight: '700',
-  },
-  appButtonContainer: {
-    elevation: 8,
-    backgroundColor: "#009688",
-    borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 12
-  },
-  appButtonText: {
-    fontSize: 18,
-    color: "#fff",
-    fontWeight: "bold",
-    alignSelf: "center",
-    textTransform: "uppercase"
   }
-
 });
 
 export default App;
