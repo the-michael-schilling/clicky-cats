@@ -16,7 +16,9 @@ import {
   Text,
   View,
   Image,
-  SafeAreaView
+  SafeAreaView,
+  Platform,
+  PlatformColor
 } from 'react-native';
 
 // import Icon from 'react-native-vector-icons/FontAwesome';
@@ -72,7 +74,6 @@ const SectionHeader = ({section}) => {
 }
 
 const SectionFooter = ({section}) => {
-
   return (
     <View style={styles.sectionFooter}>
       <View
@@ -104,19 +105,23 @@ const Contact = ({item}) => {
       <Text style={[ styles.contactDescription ]}>
         Hello, I am { name }, and I am {isHungry ? "hungry" : "full"}!!
       </Text>
-
+      
       <View style={styles.buttonContainer}>
         <Icon.Button
           name= { isHungry ? "call-outline" : "alarm-sharp" }
           onPress={() => {
             isHungry ? setIsHungry(false) : setIsHungry(true);
           }}
-          /*
-          backgroundColor={
-          
-          }
-          */
-          // disabled={!isHungry}
+          backgroundColor={ Platform.select({
+            ios:
+              isHungry ? PlatformColor('systemBlue')
+                        : PlatformColor('systemGreen'),
+            backgroundColor:
+              isHungry ? PlatformColor('@android:color/holo_blue_bright')
+                        : PlatformColor('@android:color/holo_blue_bright'),
+            default:
+              isHungry ? 'blue' : 'green',
+          })}
         >
           { isHungry ? "Pour me some milk, please!" : "Thank you!" }
         </Icon.Button>
